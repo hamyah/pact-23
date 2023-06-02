@@ -19,4 +19,8 @@ public class GameOverScreen : MonoBehaviour
     public void SetScore(int score) {
         scoreText.text = score.ToString();
     }
+
+    public void StartGame() {
+        SceneManager.LoadScene(1);
+    }
 }
