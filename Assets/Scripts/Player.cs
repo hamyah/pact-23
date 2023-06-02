@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 
 [System.Serializable]
-public class PersonInteractableActivated : UnityEvent<int, string, Vector2>{}
+public class PersonInteractableActivated : UnityEvent<int, int, Vector2>{}
 
 [System.Serializable]
 public class SoundProjectileExpired : UnityEvent{}
@@ -83,16 +83,16 @@ public class Player : MonoBehaviour
         }
     }
 
-    void AddPerson(int numberOfPeople, string typeOfPerson, Vector2 pickupPos) {
+    void AddPerson(int numberOfPeople, int typeOfPerson, Vector2 pickupPos) {
         for (int i = 0; i < numberOfPeople; i++)
-            AddPerson(pickupPos);
+            AddPerson(typeOfPerson, pickupPos);
     }
 
     void AddPerson() {
-        AddPerson(Vector2.zero);
+        AddPerson(Random.Range(1, 5), Vector2.zero);
     }
 
-    public void AddPerson(Vector2 pickupPos) {
+    public void AddPerson(int typeOfPerson, Vector2 pickupPos) {
         if(currentPeople == maxPeoplePerCircle) return;
 
         GameObject newPerson = Instantiate(personPrefab, new Vector3(0f, -circleRadius, 0f), Quaternion.identity, peopleHolder);
@@ -102,6 +102,9 @@ public class Player : MonoBehaviour
         GameObject sprite = newPerson.transform.Find("Sprite").gameObject;
         sprite.transform.position = pickupPos;
         LeanTween.move(sprite, newPerson.transform, 0.5f);
+
+        Debug.Log("Alentejanos/alentejano" + typeOfPerson + ".png");
+        sprite.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Alentejanos/alentejano" + typeOfPerson);
 
 
         currentPeople++;

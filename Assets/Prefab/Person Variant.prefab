@@ -42,7 +42,7 @@ SpriteRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 778768700887550658}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
@@ -315,7 +315,7 @@ Transform:
   m_GameObject: {fileID: 3838545156292405159}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: -1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7008600282112406691}
@@ -362,7 +362,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300006, guid: cea2c9bf87b0c4dfdafb697a3ff00959, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 37a1516b8773217499f91db66dce099a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -415,7 +415,7 @@ SpriteRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3976478024502080632}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
@@ -716,6 +716,10 @@ PrefabInstance:
     - target: {fileID: 6656142687335311025, guid: 1c0580f1a3040dc45be19e7133990fc3, type: 3}
       propertyPath: m_Name
       value: Person Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 6656142687366716066, guid: 1c0580f1a3040dc45be19e7133990fc3, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6656142687366716067, guid: 1c0580f1a3040dc45be19e7133990fc3, type: 3}
       propertyPath: m_Enabled

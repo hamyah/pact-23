@@ -28,6 +28,8 @@ public class SoundProjectile : MonoBehaviour
 
         bumpsBeforeNextPickup = bumpsBetweenPickups;
 
+        transform.rotation = Quaternion.identity;
+
     }
 
     private void OnCollisionEnter2D(Collision2D other) {
@@ -72,7 +74,7 @@ public class SoundProjectile : MonoBehaviour
         rb.velocity = rb.velocity.normalized*newSpeed;
     }
 
-    void PersonInteractableActivated(int i, string s, Vector2 v) {
+    void PersonInteractableActivated(int i, int s, Vector2 v) {
         currentPickupsActive--;
     }
 }

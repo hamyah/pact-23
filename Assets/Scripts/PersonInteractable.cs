@@ -5,10 +5,18 @@ using UnityEngine;
 public class PersonInteractable : Interactable
 {
     public bool active = false;
+    public int type;
+
     private GameObject sprite;
 
     void Start() {
         sprite = transform.Find("Sprite").gameObject;
+
+        type = Random.Range(1, 5);
+
+        sprite.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Alentejanos/alentejano" + type);
+
+
         Vector2 randomPos = new Vector2(Random.Range(15f, 20f), Random.Range(15f, 20f));
         //randomPos.x *= Mathf.Pow(-1, randomPos.x % 2);
         //randomPos.y *= Mathf.Pow(-1, randomPos.y % 2);
@@ -20,7 +28,7 @@ public class PersonInteractable : Interactable
 
     protected override void Execute() {
         if(active) {
-            Player.m_PersonInteractableActivated.Invoke(1, "", transform.position);
+            Player.m_PersonInteractableActivated.Invoke(1, type, transform.position);
             Destroy(gameObject);
         }
     }
