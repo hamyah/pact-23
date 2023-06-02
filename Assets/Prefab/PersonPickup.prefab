@@ -200,3 +200,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   active: 0
+  type: 0
+  vfx: {fileID: 2325737566240744440, guid: f29962337582361479d9bd2bc1567b30, type: 3}
