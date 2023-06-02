@@ -72,7 +72,7 @@ public class SoundProjectile : MonoBehaviour
         rb.velocity = rb.velocity.normalized*newSpeed;
     }
 
-    void PersonInteractableActivated(int i, string s) {
+    void PersonInteractableActivated(int i, string s, Vector2 v) {
         currentPickupsActive--;
     }
 }
