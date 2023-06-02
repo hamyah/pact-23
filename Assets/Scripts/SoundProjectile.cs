@@ -18,6 +18,8 @@ public class SoundProjectile : MonoBehaviour
     public int currSprite;
     public List<Sprite> sprites;
 
+    public GameObject vfx;
+
     private Rigidbody2D rb;
 
     void Start() {
@@ -48,6 +50,8 @@ public class SoundProjectile : MonoBehaviour
         //Debug.Log(other.contacts[0].normal);
         rb.velocity = other.contacts[0].normal * currentSpeed;
         //Debug.Log(rb.velocity);
+
+        Destroy(Instantiate(vfx, transform.position, Quaternion.identity), 2f);
 
         if (currentPickupsActive < maxPickupsActiveAtSameTime) {
             currSprite++;
