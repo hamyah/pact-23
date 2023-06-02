@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 
 [System.Serializable]
-public class PersonInteractableActivated : UnityEvent<int, string>{}
+public class PersonInteractableActivated : UnityEvent<int, string, Vector2>{}
 
 [System.Serializable]
 public class SoundProjectileExpired : UnityEvent{}
@@ -79,21 +79,31 @@ public class Player : MonoBehaviour
         transform.Rotate(new Vector3(0f, 0f, Input.GetAxis("Horizontal") * rotateSpeed * Time.deltaTime));
         if(test) {
             test = false;
-            SpawnPersonPickup();
+            AddPerson();
         }
     }
 
-    void AddPerson(int numberOfPeople, string typeOfPerson) {
+    void AddPerson(int numberOfPeople, string typeOfPerson, Vector2 pickupPos) {
         for (int i = 0; i < numberOfPeople; i++)
-            AddPerson();
+            AddPerson(pickupPos);
     }
 
-    public void AddPerson() {
+    void AddPerson() {
+        AddPerson(Vector2.zero);
+    }
+
+    public void AddPerson(Vector2 pickupPos) {
         if(currentPeople == maxPeoplePerCircle) return;
 
         GameObject newPerson = Instantiate(personPrefab, new Vector3(0f, -circleRadius, 0f), Quaternion.identity, peopleHolder);
         newPerson.transform.localScale = personScale;
         newPerson.transform.RotateAround(transform.position, new Vector3(0f, 0f, 1f), currentPeople*(360/maxPeoplePerCircle) + transform.eulerAngles.z);
+
+        GameObject sprite = newPerson.transform.Find("Sprite").gameObject;
+        sprite.transform.position = pickupPos;
+        LeanTween.move(sprite, newPerson.transform, 0.5f);
+
+
         currentPeople++;
 
         m_ChangedProgress.Invoke((float)currentPeople/maxPeoplePerCircle);
@@ -115,13 +125,24 @@ public class Player : MonoBehaviour
     }
 
     public void SpawnSoundProjectile() {
-        soundSpawner.eulerAngles = new Vector3(0, 0, currentPeople/2*(360/maxPeoplePerCircle));
+        /*float angle = currentPeople*(360f/maxPeoplePerCircle)/2f + transform.eulerAngles.z;
+        //soundSpawner.localPosition = new Vector2(Mathf.Sin(angle*Mathf.Deg2Rad)*circleRadius, Mathf.Cos(angle*Mathf.Deg2Rad)*circleRadius);
+        //soundSpawner.eulerAngles = new Vector3(0, 0, currentPeople/2*(360/maxPeoplePerCircle));
+
+        Vector2 first = peopleHolder.GetChild(0).position;
+        Vector2 last = peopleHolder.GetChild(peopleHolder.childCount-1).position;
+        Vector2 midPos = Vector2.Lerp(first, last, 0.5f);
+        float distPerc = Vector3.Distance(midPos, Vector2.zero);
+        Vector2 pos = Vector2.Lerp(midPos, transform.position, 0.2f);
+        Debug.Log(distPerc + " / " + circleRadius);
+        soundSpawner.position = pos;*/
+        Debug.Log("do it");
         GameObject projectile = Instantiate(soundProjectile, soundSpawner.position, soundSpawner.rotation);
     }
 
     void WhenSoundProjectileExpired() {
-        SpawnSoundProjectile();
         RemovePerson();
+        SpawnSoundProjectile();
     }
 
     void RequestPickupSpawn(string desc) {
