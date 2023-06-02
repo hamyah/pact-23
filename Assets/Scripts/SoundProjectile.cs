@@ -58,6 +58,7 @@ public class SoundProjectile : MonoBehaviour
                 Player.m_RequestPickupSpawn.Invoke("person");
                 currentPickupsActive++;
             }
+            Player.m_Bump.Invoke(bumpsBetweenPickups - bumpsBeforeNextPickup);
         }
     }
 

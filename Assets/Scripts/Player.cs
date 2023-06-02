@@ -16,6 +16,9 @@ public class ChangedProgress : UnityEvent<float>{}
 [System.Serializable]
 public class RequestPickupSpawn : UnityEvent<string>{}
 
+[System.Serializable]
+public class Bump : UnityEvent<int>{}
+
 public class Player : MonoBehaviour
 {
     public static Vector3 personScale;
@@ -24,6 +27,7 @@ public class Player : MonoBehaviour
     public static SoundProjectileExpired m_SoundProjectileExpired;
     public static ChangedProgress m_ChangedProgress;
     public static RequestPickupSpawn m_RequestPickupSpawn;
+    public static Bump m_Bump;
 
     [Header("Controls")]
     public float rotateSpeed;
@@ -56,6 +60,8 @@ public class Player : MonoBehaviour
     public TextMeshProUGUI scoreText;
     public int score;
 
+    public List<GameObject> bumpVisualizer;
+
     [Header("Sound")]
     private AudioSource audioSource;
     public float volMin;
@@ -75,11 +81,16 @@ public class Player : MonoBehaviour
         if (m_RequestPickupSpawn == null)
             m_RequestPickupSpawn = new RequestPickupSpawn();
 
+        if (m_Bump == null)
+            m_Bump = new Bump();
+
         m_PersonInteractableActivated.AddListener(AddPerson);
 
         m_SoundProjectileExpired.AddListener(WhenSoundProjectileExpired);
 
         m_RequestPickupSpawn.AddListener(RequestPickupSpawn);
+
+        m_Bump.AddListener(OnBump);
 
         audioSource = GetComponent<AudioSource>();
 
@@ -114,6 +125,14 @@ public class Player : MonoBehaviour
         if(test) {
             test = false;
             AddPerson();
+        }
+    }
+
+    void OnBump(int b) {
+        Debug.Log(b);
+        for (int i = 0; i < bumpVisualizer.Count; i++)
+        {
+            bumpVisualizer[i].SetActive(i < b);
         }
     }
 
