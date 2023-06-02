@@ -15,6 +15,9 @@ public class SoundProjectile : MonoBehaviour
     public int maxPickupsActiveAtSameTime = 2;
     public static int currentPickupsActive;
 
+    public int currSprite;
+    public List<Sprite> sprites;
+
     private Rigidbody2D rb;
 
     void Start() {
@@ -30,6 +33,13 @@ public class SoundProjectile : MonoBehaviour
 
         transform.rotation = Quaternion.identity;
 
+        currSprite = Random.Range(0, sprites.Count);
+        SetSprite(currSprite);
+
+    }
+
+    void SetSprite(int i) {
+        GetComponent<SpriteRenderer>().sprite = sprites[i];
     }
 
     private void OnCollisionEnter2D(Collision2D other) {
@@ -40,7 +50,9 @@ public class SoundProjectile : MonoBehaviour
         //Debug.Log(rb.velocity);
 
         if (currentPickupsActive < maxPickupsActiveAtSameTime) {
-            Debug.Log(currentPickupsActive + " - " + maxPickupsActiveAtSameTime);
+            currSprite++;
+            if(currSprite > sprites.Count-1) currSprite = 0;
+            SetSprite(currSprite);
             if(--bumpsBeforeNextPickup == 0) {
                 bumpsBeforeNextPickup = bumpsBetweenPickups;
                 Player.m_RequestPickupSpawn.Invoke("person");

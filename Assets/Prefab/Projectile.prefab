@@ -142,3 +142,8 @@ MonoBehaviour:
   maxDistanceFromCenter: 10
   bumpsBetweenPickups: 4
   maxPickupsActiveAtSameTime: 2
+  currSprite: 0
+  sprites:
+  - {fileID: 21300000, guid: b0c437040e5b12b4f83a805eefab333a, type: 3}
+  - {fileID: 21300000, guid: 4a037a14ca249164789bf572f13cc184, type: 3}
+  - {fileID: 21300000, guid: 3da407b627b5f0347b00aac8fee6720c, type: 3}
