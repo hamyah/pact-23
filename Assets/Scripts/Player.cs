@@ -76,11 +76,11 @@ public class Player : MonoBehaviour
         m_RequestPickupSpawn.AddListener(RequestPickupSpawn);
 
 
+        peopleHolder = transform.Find("PeopleHolder");
 
         // Person scale is 1 when there are 20 people and radius 4
-        personScale = new Vector3(20f/maxPeoplePerCircle*circleRadius/4f, 20f/maxPeoplePerCircle*circleRadius/4f, 1f);
+        UpdateMaxPeople(maxPeoplePerCircle);
 
-        peopleHolder = transform.Find("PeopleHolder");
 
         score = 0;
         
@@ -118,7 +118,15 @@ public class Player : MonoBehaviour
     }
 
     public void AddPerson(int typeOfPerson, Vector2 pickupPos) {
-        if(currentPeople == maxPeoplePerCircle) return;
+        if(currentPeople == maxPeoplePerCircle) {
+            // circle complete
+            for (int i = peopleHolder.childCount-1; i > 0; i--) {
+                Debug.Log(i);
+                Destroy(peopleHolder.GetChild(i).gameObject);
+            }
+            currentPeople = 1;
+            UpdateMaxPeople(maxPeoplePerCircle + 5);
+        }
 
         GameObject newPerson = Instantiate(personPrefab, new Vector3(0f, -circleRadius, 0f), Quaternion.identity, peopleHolder);
         newPerson.transform.localScale = personScale;
@@ -208,6 +216,18 @@ public class Player : MonoBehaviour
 
     void UpdateScore(int s) {
         scoreText.text = s.ToString();
+    }
+
+    void UpdateMaxPeople(int newMax) {
+        maxPeoplePerCircle = newMax;
+
+        personScale = new Vector3(20f/maxPeoplePerCircle*circleRadius/4f, 20f/maxPeoplePerCircle*circleRadius/4f, 1f);
+
+
+        foreach (Transform person in peopleHolder)
+        {
+            person.localScale = personScale;
+        }
     }
     
 }

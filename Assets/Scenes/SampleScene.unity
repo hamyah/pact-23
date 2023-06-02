@@ -796,7 +796,7 @@ MonoBehaviour:
   test: 0
   circleRadius: 4
   currentPeople: 0
-  maxPeoplePerCircle: 20
+  maxPeoplePerCircle: 15
   distanceBetweenPeople: 3
   personPrefab: {fileID: 7008600282112406690, guid: 49a2fd4868078fd4e9701e5a06311064, type: 3}
   controlsEnabled: 0
