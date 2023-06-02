@@ -7,6 +7,8 @@ public class PersonInteractable : Interactable
     public bool active = false;
     public int type;
 
+    public GameObject vfx;
+
     private GameObject sprite;
 
     void Start() {
@@ -29,6 +31,7 @@ public class PersonInteractable : Interactable
     protected override void Execute() {
         if(active) {
             Player.m_PersonInteractableActivated.Invoke(1, type, transform.position);
+            Destroy(Instantiate(vfx, transform.position, Quaternion.identity), 2f);
             Destroy(gameObject);
         }
     }
