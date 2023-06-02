@@ -229,5 +229,9 @@ public class Player : MonoBehaviour
             person.localScale = personScale;
         }
     }
+
+    public int GetScore() {
+        return score;
+    }
     
 }

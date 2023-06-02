@@ -13,6 +13,7 @@ public class Timer : MonoBehaviour
     public bool gameover;
 
     public GameObject gameoverScreen;
+    public GameObject endVFX;
 
     void Start() {
         Time.timeScale = 1;
@@ -37,7 +38,14 @@ public class Timer : MonoBehaviour
             // Game over
             gameover = true;
             Time.timeScale = 0;
-            Instantiate(gameoverScreen);
+
+            int score = GetComponent<Player>().GetScore();
+
+            GameObject gos = Instantiate(gameoverScreen);
+
+            gos.GetComponent<GameOverScreen>().SetScore(score);
+
+            Instantiate(endVFX);
         }
     }
 

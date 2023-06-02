@@ -301,15 +301,15 @@ MonoBehaviour:
       m_Calls: []
   m_text: 2:30
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 157382730328caf408b88ab40108930d, type: 2}
+  m_sharedMaterial: {fileID: 3901599633554094291, guid: 157382730328caf408b88ab40108930d, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4278209388
+  m_fontColor: {r: 0.4245283, g: 0.29363063, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -820,11 +820,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0210b7a9744210745af1d8919b84c720, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  totalTime: 180
+  totalTime: 190
   timerText: {fileID: 458729822}
   counting: 0
   gameover: 0
   gameoverScreen: {fileID: 6928319517982677837, guid: 62acfbe059567f24298e641ae1fd6013, type: 3}
+  endVFX: {fileID: 2325737566240744440, guid: 516b221709809cd49ba120df1c545435, type: 3}
 --- !u!1 &2116305192
 GameObject:
   m_ObjectHideFlags: 0
@@ -885,15 +886,15 @@ MonoBehaviour:
       m_Calls: []
   m_text: 15
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 157382730328caf408b88ab40108930d, type: 2}
+  m_sharedMaterial: {fileID: 3901599633554094291, guid: 157382730328caf408b88ab40108930d, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4278209388
+  m_fontColor: {r: 0.4245283, g: 0.29363063, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
