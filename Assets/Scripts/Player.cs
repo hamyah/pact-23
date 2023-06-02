@@ -68,6 +68,8 @@ public class Player : MonoBehaviour
     public float volMax;
     public int maxVolumePeople;
 
+    public AudioSource audioSourceSteps;
+
     void Start() {
         if (m_PersonInteractableActivated == null)
             m_PersonInteractableActivated = new PersonInteractableActivated();
@@ -235,6 +237,8 @@ public class Player : MonoBehaviour
     }
 
     void StartGame() {
+        audioSourceSteps.Stop();
+        
         controlsEnabled = true;
         LeanTween.rotateLocal(firstPerson, Vector3.zero, 0.5f);
 
