@@ -34,8 +34,11 @@ public class Player : MonoBehaviour
     public int maxPeoplePerCircle = 10;
     public float distanceBetweenPeople = 1.25f;
     public GameObject personPrefab;
+    public bool controlsEnabled = false;
+    public bool firstSoundSpawned = false;
 
     private Transform peopleHolder;
+    private GameObject firstPerson;
 
     [Header("Projectile")]
     public GameObject soundProjectile;
@@ -44,6 +47,10 @@ public class Player : MonoBehaviour
     [Header("Pickups")]
     public GameObject personPickupPrefab;
     public float spawnRadiusPercentage;
+
+    [Header("UI")]
+    public GameObject tutorial;
+    private GameObject tutorialInstance;
 
     void Start() {
         if (m_PersonInteractableActivated == null)
@@ -72,11 +79,23 @@ public class Player : MonoBehaviour
         peopleHolder = transform.Find("PeopleHolder");
         
         AddPerson();
-        SpawnSoundProjectile();
     }
 
     void Update() {
-        transform.Rotate(new Vector3(0f, 0f, Input.GetAxis("Horizontal") * rotateSpeed * Time.deltaTime));
+        if(controlsEnabled) {
+            transform.Rotate(new Vector3(0f, 0f, Input.GetAxis("Horizontal") * rotateSpeed * Time.deltaTime));
+
+            if(!firstSoundSpawned) {
+                if(Input.GetKeyDown(KeyCode.Space)) {
+                    Destroy(tutorialInstance, 5f);
+                    tutorialInstance.GetComponent<Animator>().Play("fade out");
+
+
+                    SpawnSoundProjectile();
+                }
+            }
+        }
+
         if(test) {
             test = false;
             AddPerson();
@@ -89,7 +108,7 @@ public class Player : MonoBehaviour
     }
 
     void AddPerson() {
-        AddPerson(Random.Range(1, 5), Vector2.zero);
+        AddPerson(Random.Range(1, 5), new Vector2(0, 15f));
     }
 
     public void AddPerson(int typeOfPerson, Vector2 pickupPos) {
@@ -101,7 +120,16 @@ public class Player : MonoBehaviour
 
         GameObject sprite = newPerson.transform.Find("Sprite").gameObject;
         sprite.transform.position = pickupPos;
-        LeanTween.move(sprite, newPerson.transform, 0.5f);
+        if(currentPeople == 0) {
+            firstPerson = sprite;
+            sprite.transform.eulerAngles = new Vector3(0, 0, 180);
+            LeanTween.rotateLocal(sprite, new Vector3(0, 0, 200f), 0.2f).setRepeat(24).setLoopPingPong();
+            LeanTween.move(sprite, newPerson.transform, 5f).setOnComplete(StartGame);
+
+        } else {
+            LeanTween.move(sprite, newPerson.transform, 0.5f);
+
+        }
 
         Debug.Log("Alentejanos/alentejano" + typeOfPerson + ".png");
         sprite.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Alentejanos/alentejano" + typeOfPerson);
@@ -160,6 +188,14 @@ public class Player : MonoBehaviour
 
         GameObject newPickup = Instantiate(personPickupPrefab, new Vector2(Mathf.Cos(randomAngle)*randomDistance, Mathf.Sin(randomAngle)*randomDistance), Quaternion.identity);
         
+    }
+
+    void StartGame() {
+        controlsEnabled = true;
+        LeanTween.rotateLocal(firstPerson, Vector3.zero, 0.5f);
+
+        // Spawn instructions
+        tutorialInstance = Instantiate(tutorial);
     }
     
 }
