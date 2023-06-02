@@ -56,6 +56,12 @@ public class Player : MonoBehaviour
     public TextMeshProUGUI scoreText;
     public int score;
 
+    [Header("Sound")]
+    private AudioSource audioSource;
+    public float volMin;
+    public float volMax;
+    public int maxVolumePeople;
+
     void Start() {
         if (m_PersonInteractableActivated == null)
             m_PersonInteractableActivated = new PersonInteractableActivated();
@@ -75,6 +81,7 @@ public class Player : MonoBehaviour
 
         m_RequestPickupSpawn.AddListener(RequestPickupSpawn);
 
+        audioSource = GetComponent<AudioSource>();
 
         peopleHolder = transform.Find("PeopleHolder");
 
@@ -95,6 +102,8 @@ public class Player : MonoBehaviour
                 if(Input.GetKeyDown(KeyCode.Space)) {
                     Destroy(tutorialInstance, 5f);
                     tutorialInstance.GetComponent<Animator>().Play("fade out");
+
+                    audioSource.Play();
 
 
                     SpawnSoundProjectile();
@@ -216,6 +225,8 @@ public class Player : MonoBehaviour
 
     void UpdateScore(int s) {
         scoreText.text = s.ToString();
+
+        audioSource.volume = Mathf.Lerp(volMin, volMax, (float)currentPeople/maxVolumePeople);
     }
 
     void UpdateMaxPeople(int newMax) {
