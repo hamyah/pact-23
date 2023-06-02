@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using TMPro;
 
 [System.Serializable]
 public class PersonInteractableActivated : UnityEvent<int, int, Vector2>{}
@@ -52,6 +53,9 @@ public class Player : MonoBehaviour
     public GameObject tutorial;
     private GameObject tutorialInstance;
 
+    public TextMeshProUGUI scoreText;
+    public int score;
+
     void Start() {
         if (m_PersonInteractableActivated == null)
             m_PersonInteractableActivated = new PersonInteractableActivated();
@@ -77,6 +81,8 @@ public class Player : MonoBehaviour
         personScale = new Vector3(20f/maxPeoplePerCircle*circleRadius/4f, 20f/maxPeoplePerCircle*circleRadius/4f, 1f);
 
         peopleHolder = transform.Find("PeopleHolder");
+
+        score = 0;
         
         AddPerson();
     }
@@ -136,6 +142,7 @@ public class Player : MonoBehaviour
 
 
         currentPeople++;
+        UpdateScore(++score);
 
         m_ChangedProgress.Invoke((float)currentPeople/maxPeoplePerCircle);
 
@@ -150,6 +157,7 @@ public class Player : MonoBehaviour
         if(currentPeople == 1) return;
 
         currentPeople--;
+        UpdateScore(--score);
         Destroy(peopleHolder.GetChild(peopleHolder.childCount-1).gameObject);
 
         m_ChangedProgress.Invoke((float)currentPeople/maxPeoplePerCircle);
@@ -196,6 +204,10 @@ public class Player : MonoBehaviour
 
         // Spawn instructions
         tutorialInstance = Instantiate(tutorial);
+    }
+
+    void UpdateScore(int s) {
+        scoreText.text = s.ToString();
     }
     
 }
