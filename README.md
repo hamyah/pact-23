@@ -1,9 +1,9 @@
-# pact-23
--->[PLAY THE GAME HERE](https://hamyah.itch.io/a-voz-do-povo)<--
+# A Voz do Povo
+--> **[PLAY THE GAME HERE](https://hamyah.itch.io/a-voz-do-povo)** <--
 
 This game was made under 10 hours for PACT Game Jam #1
 
-**The Team:**
+## The Team:
 
 - [Gonçalo Goulão](https://goncalogoulao.itch.io) - Artist
 
