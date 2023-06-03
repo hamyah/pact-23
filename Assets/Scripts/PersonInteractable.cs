@@ -12,6 +12,8 @@ public class PersonInteractable : Interactable
     private GameObject sprite;
 
     void Start() {
+        GetComponent<AudioSource>().Play();
+
         sprite = transform.Find("Sprite").gameObject;
 
         type = Random.Range(1, 5);

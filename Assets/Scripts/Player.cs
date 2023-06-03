@@ -69,6 +69,7 @@ public class Player : MonoBehaviour
     public int maxVolumePeople;
 
     public AudioSource audioSourceSteps;
+    public AudioSource badAudio;
 
     void Start() {
         if (m_PersonInteractableActivated == null)
@@ -194,6 +195,8 @@ public class Player : MonoBehaviour
     void RemovePerson() {
         if(currentPeople == 1) return;
 
+        badAudio.Play();
+
         currentPeople--;
         UpdateScore(--score);
         Destroy(peopleHolder.GetChild(peopleHolder.childCount-1).gameObject);
@@ -238,7 +241,7 @@ public class Player : MonoBehaviour
 
     void StartGame() {
         audioSourceSteps.Stop();
-        
+
         controlsEnabled = true;
         LeanTween.rotateLocal(firstPerson, Vector3.zero, 0.5f);
 
