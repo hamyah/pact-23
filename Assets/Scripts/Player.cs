@@ -41,6 +41,8 @@ public class Player : MonoBehaviour
     public GameObject personPrefab;
     public bool controlsEnabled = false;
     public bool firstSoundSpawned = false;
+    public string firstPersonType;
+    public Vector2 personStartPos = new Vector2(0, 15f);
 
     private Transform peopleHolder;
     private GameObject firstPerson;
@@ -105,7 +107,14 @@ public class Player : MonoBehaviour
 
         score = 0;
         
-        AddPerson();
+        if (firstPersonType == null || firstPersonType == "") {
+            Debug.Log("here");
+            AddPerson();
+        } else {
+            Debug.Log("there");
+
+            AddPerson(firstPersonType);
+        }
     }
 
     void Update() {
@@ -114,6 +123,10 @@ public class Player : MonoBehaviour
 
             if(!firstSoundSpawned) {
                 if(Input.GetKeyDown(KeyCode.Space)) {
+                    firstSoundSpawned = true;
+
+                    GetComponent<Timer>().StartTimer();
+
                     Destroy(tutorialInstance, 5f);
                     tutorialInstance.GetComponent<Animator>().Play("fade out");
 
@@ -144,11 +157,19 @@ public class Player : MonoBehaviour
             AddPerson(typeOfPerson, pickupPos);
     }
 
+    void AddPerson(string typeOfPerson) {
+        AddPerson(typeOfPerson, personStartPos);
+    }
+
     void AddPerson() {
-        AddPerson(Random.Range(1, 5), new Vector2(0, 15f));
+        AddPerson(Random.Range(1, 5), personStartPos);
     }
 
     public void AddPerson(int typeOfPerson, Vector2 pickupPos) {
+        AddPerson("Alentejanos/alentejano" + typeOfPerson, pickupPos);
+    }
+
+    public void AddPerson(string typeOfPerson, Vector2 pickupPos) {
         if(currentPeople == maxPeoplePerCircle) {
             // circle complete
             for (int i = peopleHolder.childCount-1; i > 0; i--) {
@@ -176,8 +197,8 @@ public class Player : MonoBehaviour
 
         }
 
-        Debug.Log("Alentejanos/alentejano" + typeOfPerson + ".png");
-        sprite.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Alentejanos/alentejano" + typeOfPerson);
+        Debug.Log(typeOfPerson);
+        sprite.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(typeOfPerson);
 
 
         currentPeople++;

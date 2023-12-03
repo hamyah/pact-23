@@ -23,4 +23,8 @@ public class GameOverScreen : MonoBehaviour
     public void StartGame() {
         SceneManager.LoadScene(1);
     }
+
+    public void LoadScene(int index) {
+        SceneManager.LoadScene(index);
+    }
 }

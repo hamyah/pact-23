@@ -19,13 +19,18 @@ public class Timer : MonoBehaviour
         Time.timeScale = 1;
         gameover = false;
         counting= false;
-
-        StartTimer();
+        timerText.enabled = false;
     }
 
-    void StartTimer() {
+    public void StartTimer() {
         startTime = Time.time;
         counting = true;
+
+        if (timerText.gameObject.GetComponent<Animator>() != null) {
+            timerText.gameObject.GetComponent<Animator>().Play("timer_in");
+        }
+
+        timerText.enabled = true;
     }
 
     void Update() {
@@ -34,7 +39,7 @@ public class Timer : MonoBehaviour
 
         }
 
-        if(!gameover && (Time.time - startTime) >= totalTime) {
+        if(!gameover && counting && (Time.time - startTime) >= totalTime) {
             // Game over
             gameover = true;
             Time.timeScale = 0;
